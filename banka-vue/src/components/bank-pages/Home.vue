@@ -27,7 +27,7 @@
     </div>
 
     <!-- Services Section -->
-    <div class="container text-center my-5 services">
+    <div class="container text-center my-5 services ">
       <h2>Our Services</h2>
       <div class="row">
         <div class="col-md-4">
@@ -54,9 +54,39 @@
       </div>
     </div>
 
+
+    <div class="card flex-lg-row justify-content-center justify-content-between card-founders  ">
+    <div class="card founder" style="width: 25rem;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+      <div class="card-body">
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+
+    <div class="card founder" style="width: 25rem;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+      <div class="card-body">
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+
+    <div class="card founder" style="width: 25rem;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+      <div class="card-body">
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+
+
+    </div>
     <!-- Footer -->
     <the-footer/>
   </div>
+
+
+
+
+
 </template>
 
 <script>
@@ -67,11 +97,26 @@ export default {
   name: 'BankLandingPage',
   components: {TheFooter, TheNavbar}
 };
+
+
 </script>
 
 <style scoped>
 
+.founder{
+  background: linear-gradient(to top, rgba(6, 74, 79, 0.5), rgb(6, 74, 79));
+  color: white;
+}
 
+.card-founders{
+  background-color: rgb(1,6,23);
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8%;
+  margin-top: 8%;
+
+}
 
 .image-container {
   position: relative;
@@ -114,15 +159,5 @@ export default {
 
 }
 
-.footer {
-  background-color: #f8f9fa;
-  padding: 2rem 0;
-}
 </style>
 
-<!-- External CSS and JS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
