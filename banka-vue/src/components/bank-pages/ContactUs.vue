@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="col-12">
-      <router-link to="Home"><button class="btn btn-primary" type="submit">Submit form</button></router-link>
+      <router-link class="nav-link" :to="{ name: 'Home' }"><button class="btn" >Submit form</button></router-link>
     </div>
   </form>
 </template>
@@ -103,5 +103,10 @@ input:invalid ~ .invalid-feedback {
   left: 45%;
   color: white;
   font-family: "Dosis", sans-serif;
+}
+
+.btn{
+  background-color: rgb(64, 165, 120);
+  color: white;
 }
 </style>
