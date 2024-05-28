@@ -1,12 +1,14 @@
 <template>
-  <div  style="background-color: rgb(1,6,23)">
-    <the-navbar/>
+  <div :style="lightPhoto ? 'background-color: rgb(1,6,23)': 'background-color: rgb(1,13,47)'">
 
-    <!-- Image Section with Overlay -->
+<!--    background-color: rgb(1,6,23)-->
+
+    <the-navbar @toggleLightPhoto="toggleLightPhoto"/>
+
     <div class="image-container">
-      <img src="./../../assets/wallpaperflare.com_wallpaper.jpg" class="background-image">
+      <img v-if="lightPhoto" src="./../../assets/wallpaperflare.com_wallpaper.jpg" class="background-image">
+      <img v-else src="./../../assets/wallpaperflare%20(1).jpg" class="background-image">
 
-      <!-- Testimonials Section -->
       <div class="testimonials-overlay container text-center">
         <h2>What Our Clients Say</h2>
         <div class="row">
@@ -55,8 +57,13 @@
     </div>
 
 
-    <div class="card flex-lg-row justify-content-center justify-content-between card-founders  ">
-    <div class="card founder" style="width: 25rem;">
+    <div :style="lightPhoto ? 'background-color: rgb(1,6,23)': 'background-color: rgb(1,13,47)'" class="card flex-lg-row justify-content-center justify-content-between card-founders  ">
+
+
+        <button class="btn btn-success  arrow"> <p>  <  </p> </button>
+
+
+    <div  class="card founder" style="width: 25rem;">
       <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
       <div class="card-body">
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -78,8 +85,10 @@
     </div>
 
 
+        <button class="btn btn-success  arrow"> <p>  >  </p> </button>
+
     </div>
-    <!-- Footer -->
+
     <the-footer/>
   </div>
 
@@ -89,19 +98,36 @@
 
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import TheNavbar from "@/components/layouts/TheNavbar.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
 
-export default {
-  name: 'BankLandingPage',
-  components: {TheFooter, TheNavbar}
-};
+
+    const lightPhoto = ref(true);
+
+    function toggleLightPhoto() {
+      lightPhoto.value = !lightPhoto.value;
+    }
+
+
 
 
 </script>
 
 <style scoped>
+
+.arrow p{
+  margin-bottom: 9px;
+}
+
+.arrow{
+  font-size: 40px;
+  background-color: rgb(64, 165, 120);
+}
+
+
+
 
 .founder{
   background: linear-gradient(to top, rgba(6, 74, 79, 0.5), rgb(6, 74, 79));
@@ -109,7 +135,6 @@ export default {
 }
 
 .card-founders{
-  background-color: rgb(1,6,23);
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -158,6 +183,8 @@ export default {
   margin-bottom: 1rem;
 
 }
+
+
 
 </style>
 

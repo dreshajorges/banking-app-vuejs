@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import {onMounted, ref} from 'vue';
 import { Dropdown, Ripple, initMDB } from 'mdb-ui-kit';
 
 initMDB({ Dropdown, Ripple });
@@ -10,7 +10,18 @@ onMounted(() => {
     return new Dropdown(dropdownToggleEl);
   });
 });
+
+
+function toggleLightPhoto() {
+  emit('toggleLightPhoto')
+}
+
+
+const emit = defineEmits(['toggleLightPhoto']);
 </script>
+
+
+
 
 <template>
   <nav class="navbar navbar-expand-lg gradient-navbar" style="background: linear-gradient(to top, rgba(6, 74, 79, 0), rgb(6, 74, 79));; position: fixed; z-index: 1; width: 100%;">
@@ -32,6 +43,18 @@ onMounted(() => {
             </router-link>
           </li>
         </ul>
+        <div>
+          <div class="dropdown">
+            <button
+                @click="toggleLightPhoto()"
+                class="btn btn-wh"
+                type="button"
+
+            >
+              🔦
+            </button>
+          </div>
+        </div>
         <div class="dropdown">
           <button
               class="btn btn-wh dropdown-toggle"
@@ -65,6 +88,7 @@ Oltion
 .btn{
   background-color: rgb(64, 165, 120);
   color: white;
+  margin-left: 10px;
 }
 
 </style>
