@@ -98,40 +98,30 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import TheNavbar from "@/components/layouts/TheNavbar.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
 
 
-    const lightPhoto = ref(true);
+const lightPhoto = ref(JSON.parse(localStorage.getItem('lightPhoto')));
 
-    function toggleLightPhoto() {
-      lightPhoto.value = !lightPhoto.value;
-    }
+function toggleLightPhoto() {
 
-
+  lightPhoto.value = !lightPhoto.value;
 
 
-
-
-
-
-
-
-
-
-
-
-
-const activeElement = ref(null);
-
-function setActive(element) {
-  activeElement.value = element;
+  localStorage.setItem('lightPhoto', JSON.stringify(lightPhoto.value));
 }
 
-function clearActive() {
-  activeElement.value = null;
-}
+  const activeElement = ref(null);
+
+  function setActive(element) {
+    activeElement.value = element;
+  }
+
+  function clearActive() {
+    activeElement.value = null;
+  }
 
 
 
@@ -141,6 +131,9 @@ function clearActive() {
 </script>
 
 <style scoped>
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+
 
 .arrow p{
   margin-bottom: 9px;
@@ -220,7 +213,7 @@ function clearActive() {
 
 
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+
 
 .pen {
   max-width: 848px;
@@ -296,19 +289,19 @@ function clearActive() {
   opacity: 0.4;
 }
 .element.franklin {
-  background: url('../../assets/erioni.jpg') 45% 0 no-repeat;
+  background: url('../../assets/Dugzah.png') 45% 0 no-repeat;
   background-size: cover;
 }
 .element.michael {
-  background: url('../../assets/violanti.jpg') 45% 0 no-repeat;
+  background: url('../../assets/Albertpng.png') 45% 0 no-repeat;
   background-size: cover;
 }
 .element.trevor {
-  background: url('../../assets/orgesi.jpg') 35% 0 no-repeat;
+  background: url('../../assets/Sevdije.png') 35% 0 no-repeat;
   background-size: cover;
 }
 .element.new-character {
-  background: url('../../assets/olti.jpg') 45% 0 no-repeat;
+  background: url('../../assets/moelester.png') 45% 0 no-repeat;
   background-size: cover;
 }
 .element:last-of-type {
@@ -326,7 +319,7 @@ function clearActive() {
     width: 200px;
   }
   .element.active {
-    width: 321px;
+    width: 350px;
   }
   .stage {
     max-width: 1210px;

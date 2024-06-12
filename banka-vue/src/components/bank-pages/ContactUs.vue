@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="col-12">
-      <router-link class="nav-link" :to="{ name: 'Home' }"><button class="btn" >Submit form</button></router-link>
+      <router-link class="nav-link" :to="{ name: 'Home' }"><button class="btn">Submit form</button></router-link>
     </div>
   </form>
 </template>
