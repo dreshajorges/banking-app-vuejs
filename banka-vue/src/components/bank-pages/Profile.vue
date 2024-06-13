@@ -1,13 +1,16 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
-import { ref, onMounted } from 'vue'
+import {ref, onMounted, reactive} from 'vue'
 import client from "@/helpers/client.js";
 import TheNavbar from "@/components/layouts/TheNavbar.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
 import AppButton from "@/components/layouts/AppButton.vue";
+import {useRouter} from "vue-router";
+import Swal from "sweetalert";
 
 const authStore = useAuthStore()
 const user = ref(null)
+const router = useRouter()
 
 onMounted(async () => {
   const userId = authStore.loggedInUser.userId
@@ -23,6 +26,43 @@ function toggleLightPhoto() {
 
   localStorage.setItem('lightPhoto', JSON.stringify(lightPhoto.value));
 }
+
+
+const loading = ref(false);
+
+const isUpdate = ref(false);
+
+function changeIsUpdate() {
+  isUpdate.value = !isUpdate.value;
+}
+
+const updatedUser = reactive({
+  email: '',
+  password: ''
+});
+
+
+async function handleUpdate() {
+  loading.value = true;
+  try {
+    await authStore.updateUser(authStore.loggedInUser.userId, updatedUser);
+    await Swal({
+      title: "User Updated Successfully!",
+      icon: "success"
+    });
+    isUpdate.value = false;
+    authStore.logOut()
+    await router.push({
+      name: 'SignupLogin',
+    })
+  } catch (error) {
+    console.error("Update failed", error);
+    alert('Failed to update user. Please try again.');
+  } finally {
+    loading.value = false;
+  }
+}
+
 </script>
 
 
@@ -30,7 +70,7 @@ function toggleLightPhoto() {
   <div style="padding-top: 0.1px;" :class="{ 'bodyDivLight': lightPhoto, 'bodyDivDark': !lightPhoto }">
   <the-navbar @toggleLightPhoto="toggleLightPhoto"/>
 
-  <div :class="lightPhoto ? 'profile-containerDark' : 'profile-containerLight'">
+  <div :class="lightPhoto ? 'profile-containerDark' : 'profile-containerLight'" v-if="!isUpdate">
     <h1 class="profile-heading">Profile</h1>
     <div v-if="user" class="profile-details">
       <div class="detail-item">
@@ -58,7 +98,7 @@ function toggleLightPhoto() {
         <span class="detail-value">*****</span>
       </div>
       <div class="detail-item">
-        <span class="detail-label"><button class="btn btn-warning">Update</button></span>
+        <span class="detail-label"><button class="btn btn-warning" @click="changeIsUpdate">Update</button></span>
       </div>
     </div>
     <div v-else class="loading-message">
@@ -70,7 +110,45 @@ function toggleLightPhoto() {
 
 
 
+    <div v-if="isUpdate" class="signupDiv container">
+      <h3 :class="lightPhoto ? 'h3Light' : 'h3Dark' " class="mb-5 text-center">Sign Up</h3>
+      <form @submit.prevent="handleUpdate">
+        <div class="mb-3">
+          <input type="text" class="form-control" :placeholder='user.name' disabled/>
+        </div>
 
+
+        <div class="mb-3">
+          <input type="text" class="form-control" :placeholder="user.surname" disabled/>
+        </div>
+
+
+        <div class="mb-3">
+          <input id="birthdateInput" type="text" class="form-control" :placeholder="user.birthdate" disabled>
+        </div>
+
+
+        <div class="mb-3">
+          <input id="genderInput" type="text" class="form-control" :placeholder="user.gender" disabled>
+        </div>
+
+
+        <div class="mb-3">
+          <input type="email" class="form-control" :placeholder="user.email" v-model="updatedUser.email"/>
+        </div>
+
+
+        <div class="mb-3">
+          <input type="password" class="form-control" placeholder="New Password" v-model="updatedUser.password"/>
+        </div>
+
+        <div class="text-center mt-5">
+          <app-button :loading="loading" class="btn btn-warning">
+            Update
+          </app-button>
+        </div>
+      </form>
+    </div>
 
 
 
@@ -83,6 +161,23 @@ function toggleLightPhoto() {
 
 
 <style scoped>
+
+.h3Light{
+  color: white;
+}
+
+.h3Dark{
+  color: black;
+}
+
+.signupDiv{
+  margin-top: 7%;
+  margin-bottom: 7%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+
 .profile-containerLight button{
   margin-top: 4%;
 }

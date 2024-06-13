@@ -8,7 +8,9 @@ const router = useRouter()
 const authStore = useAuthStore();
 
 function goLogin(){
-  router.push("/");
+  router.push({
+    name: 'SignupLogin'
+  });
 }
 
 initMDB({ Dropdown, Ripple });

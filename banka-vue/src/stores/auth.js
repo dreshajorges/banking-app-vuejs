@@ -8,6 +8,7 @@ export const useAuthStore =defineStore('auth', ()=>{
 
     const url = "http://localhost:8080/api/banka"
     const token = ref(localStorage.getItem('token') || null)
+    const creditUrl = "http://localhost:8080/api/banka/cards"
 
 
 
@@ -63,6 +64,60 @@ export const useAuthStore =defineStore('auth', ()=>{
     }
 
 
+    async function updateUser(userId,user){
+
+
+    try {
+        const response = await client.put(`${url}/users/${userId}`, user);
+        console.log(response);
+    }catch (e) {
+        console.log("Failed to update user with ID", userId);
+    }
+
+
+    }
+
+
+
+    async function deleteUser(userId) {
+
+        try {
+            const response = await client.delete(`${url}/users/delete/${userId}`);
+            console.log(response);
+        }catch (e) {
+            console.log("Failed to delete user with ID", userId);
+        }
+
+    }
+
+
+    async function getCards() {
+
+        try {
+            const response = await client.get(`${creditUrl}`);
+            return response.data
+
+        }catch (e) {
+            console.log("Failed to fetch Cards");
+        }
+
+    }
+
+
+    async function getCardByid(creditId) {
+
+        try {
+            const response = await client.get(`${creditUrl}/${creditId}`);
+            return response.data
+        }catch (e) {
+            console.log("Failed to fetch Cards");
+            return null;
+        }
+
+    }
+
+
+
     function logOut() {
         if (isLoggedIn.value) {
             localStorage.removeItem('token');
@@ -99,7 +154,7 @@ export const useAuthStore =defineStore('auth', ()=>{
 
 
 
-return{signup, token, isAdmin, loggedInUser, isLoggedIn, logIn, logOut, getUsers, getUserById}
+return{signup, token, isAdmin, loggedInUser, isLoggedIn, logIn, logOut, getUsers, getUserById, updateUser, deleteUser, getCards, getCardByid}
 
 
 })

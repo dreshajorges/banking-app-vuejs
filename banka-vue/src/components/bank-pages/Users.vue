@@ -3,6 +3,7 @@ import {ref, onMounted} from 'vue';
 import {useAuthStore} from "@/stores/auth.js";
 import TheNavbar from "@/components/layouts/TheNavbar.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
+import Swal from "sweetalert";
 
 // Create a store instance
 const authStore = useAuthStore();
@@ -18,21 +19,31 @@ const fetchUsers = async () => {
 const lightPhoto = ref(JSON.parse(localStorage.getItem('lightPhoto')));
 
 function toggleLightPhoto() {
-
   lightPhoto.value = !lightPhoto.value;
-
-
   localStorage.setItem('lightPhoto', JSON.stringify(lightPhoto.value));
 }
 
-// Call fetchUsers when component is mounted
 onMounted(() => {
   fetchUsers();
 });
+
+async function deleteUser(userId, email) {
+  try {
+    await authStore.deleteUser(userId);
+    await Swal({
+      title: `You have successfully deleted the user ${email}`,
+      icon: "success"
+    });
+    // Fetch users again after deletion
+    await fetchUsers();
+  } catch(e) {
+    console.log(e);
+  }
+}
 </script>
+
 <template>
   <div style="padding-top: 0.1px;" :class="lightPhoto ? 'bodyDivDark' : 'bodyDivLight'">
-
     <the-navbar @toggleLightPhoto="toggleLightPhoto"/>
     <div class="container usersDiv">
       <h1 :class="lightPhoto ? 'h1Dark' : 'h1Light' ">User List</h1>
@@ -46,6 +57,7 @@ onMounted(() => {
           <th>Gender</th>
           <th>Email</th>
           <th>Role</th>
+          <th class="text-center">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -57,6 +69,9 @@ onMounted(() => {
           <td>{{ user.gender }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
+          <td>
+            <button @click="() => deleteUser(user.id, user.email)" class="btn btn-danger">Delete</button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -66,6 +81,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+button{
+  margin-left: 21%;
+}
 
 .h1Light {
   color: black;
