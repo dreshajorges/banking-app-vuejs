@@ -51,6 +51,11 @@ const emit = defineEmits(['toggleLightPhoto']);
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" active-class="active-link" :to="{ name: 'Transaction' }">
+              Transaction
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" active-class="active-link" :to="{ name: 'ContactUs' }">
               Contact Us
             </router-link>

@@ -104,17 +104,58 @@ export const useAuthStore =defineStore('auth', ()=>{
     }
 
 
-    async function getCardByid(creditId) {
+    async function getCardById(creditId) {
 
         try {
             const response = await client.get(`${creditUrl}/${creditId}`);
             return response.data
         }catch (e) {
-            console.log("Failed to fetch Cards");
+            console.log("Failed to fetch Card");
             return null;
         }
 
     }
+
+
+
+
+    async function addCard(card) {
+
+        try {
+            const response = await client.post(`${creditUrl}`, card);
+
+            console.log(response)
+        }catch (e) {
+            console.log("Failed to add Card");
+            return null;
+        }
+
+    }
+
+
+
+    async function sendMoney(sendMoneyRequest) {
+        try {
+            const response = await client.post(`${creditUrl}/send-money`, sendMoneyRequest);
+
+            // Check if the request was successful based on HTTP status code
+            if (response.status === 200) {
+                console.log("Money sent successfully:", response.data);
+                return response.data; // Return the response data on success
+            } else {
+                // Log and throw an error if the request was not successful
+                console.error("Failed to send money. Status:", response.status);
+                throw new Error("Failed to send money");
+            }
+        } catch (error) {
+            // Handle network errors or other exceptions
+            console.error("Error sending money:", error.message);
+            throw error; // Rethrow the error to be caught by the calling function
+        }
+    }
+
+
+
 
 
 
@@ -154,7 +195,7 @@ export const useAuthStore =defineStore('auth', ()=>{
 
 
 
-return{signup, token, isAdmin, loggedInUser, isLoggedIn, logIn, logOut, getUsers, getUserById, updateUser, deleteUser, getCards, getCardByid}
+return{signup, token, isAdmin, loggedInUser, isLoggedIn, logIn, logOut, getUsers, getUserById, updateUser, deleteUser, getCards, getCardById,  sendMoney}
 
 
 })

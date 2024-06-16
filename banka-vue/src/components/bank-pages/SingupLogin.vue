@@ -274,6 +274,9 @@ const loading = ref(false);
 
 
 <style scoped>
+
+
+
 #birthdateInput {
   padding-right: 30px;
 }

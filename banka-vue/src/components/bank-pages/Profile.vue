@@ -196,8 +196,8 @@ async function handleUpdate() {
 
 .profile-containerLight {
   margin-left: 34%;
-  margin-top: 7%;
-  margin-bottom: 7%;
+  margin-top: 8.5%;
+  margin-bottom: 8.5%;
   max-width: 600px;
   padding: 20px;
   border-radius: 8px;
@@ -206,8 +206,8 @@ async function handleUpdate() {
 
 .profile-containerDark {
   margin-left: 34%;
-  margin-top: 7%;
-  margin-bottom: 7%;
+  margin-top: 8.5%;
+  margin-bottom: 8.5%;
   max-width: 600px;
   padding: 20px;
   border-radius: 8px;
